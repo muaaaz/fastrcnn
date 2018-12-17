@@ -3,6 +3,8 @@ import numpy as np
 import cv2
 names = []
 
+f = open('annotate.txt','w')
+
 def read_image(image_path):
 	global names
 	names.append(image_path)
@@ -28,6 +30,7 @@ def read_image(image_path):
 	image = (((image - min) / (max-min))**(1/2.2)) * 255	
 	return image
 
+
 def read_checker(image_name,H,W):
 	csv = np.genfromtxt(os.path.join("CHECKER", "{0}_mask.txt".format(image_name)), delimiter=',')
 	big_rec = csv[0]
@@ -37,9 +40,9 @@ def read_checker(image_name,H,W):
 	xmx, ymx = big_rec[0] + big_rec[2], big_rec[1] + big_rec[3] 
 	x = (xmn+xmx)/2
 	y = (ymn+ymx)/2
-	f = open(os.path.join("fixed_test", "{0}.txt".format(image_name)),'w')
-	f.write(str(int(0)) + ' ' + str(x/W) + ' ' + str (y/H) + ' ' + str(big_rec[2]/W) + ' ' + str(big_rec[3]/H) + "\n")
 	
+	#f.write(str(int(0)) + ' ' + str(x/W) + ' ' + str (y/H) + ' ' + str(big_rec[2]/W) + ' ' + str(big_rec[3]/H) + "\n")
+	f.write('./fixed_data/{0}.PNG'.format(image_name) + ' ' + xmn + ' ' + ymn + ' ' + xmx + ' ' + ymx + ' ' + str(int(0)) )
 	c = 1
 	for i in range(0, small_recs.shape[0], 2):
 		xs = small_recs[i] + big_rec[0]
@@ -50,7 +53,8 @@ def read_checker(image_name,H,W):
 		y = (ymn+ymx)/2
 		w = xmx - xmn
 		h = ymx - ymn
-		f.write(str(c) + ' ' + str(x/W)  + ' ' + str(y/H)  + ' ' + str(w/W)  + ' ' + str(h/H) + '\n' )
+		#f.write(str(c) + ' ' + str(x/W)  + ' ' + str(y/H)  + ' ' + str(w/W)  + ' ' + str(h/H) + '\n' )
+		f.write('./fixed_data/{0}.PNG'.format(image_name) + ' ' + xmn + ' ' + ymn + ' ' + xmx + ' ' + ymx + ' ' + str(c) )
 		c += 1
 
 if __name__ == '__main__':
@@ -70,8 +74,10 @@ if __name__ == '__main__':
 				filename = file[:-4]
 				img = read_image(filepath)
 				read_checker(filename,img.shape[0],img.shape[1])
-	f = open('test.txt','w')
-	for x in names:
-		f.write(x + '\n')
+	
+	f.close()
+	#f = open('test.txt','w')
+	#for x in names:
+	#	f.write(x + '\n')
 	
 			
