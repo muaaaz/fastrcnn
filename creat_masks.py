@@ -72,7 +72,7 @@ if __name__ == '__main__':
 			#if 'fixed' in filepath:
 			#	continue
 
-			if filepath.endswith(".png") or filepath.endswith(".PNG"):
+			if (filepath.endswith(".png") or filepath.endswith(".PNG")) and 'Canon1DsMkIII' in filepath :
 				filename = file[:-4]
 				img = read_image(filepath)
 				read_checker(filename,img.shape[0],img.shape[1])
