@@ -42,7 +42,8 @@ def read_checker(image_name,H,W):
 	y = (ymn+ymx)/2
 	
 	#f.write(str(int(0)) + ' ' + str(x/W) + ' ' + str (y/H) + ' ' + str(big_rec[2]/W) + ' ' + str(big_rec[3]/H) + "\n")
-	f.write('./fixed_data/{0}.PNG'.format(image_name) + ' ' + xmn + ' ' + ymn + ' ' + xmx + ' ' + ymx + ' ' + str(int(0)) )
+	fname = './fixed_data/{0}.PNG'.format(image_name)
+	f.write(fname + ' ' + str(xmn) + ' ' + str(ymn) + ' ' + str(xmx) + ' ' + str(ymx) + ' ' + str(int(0)) + '\n')
 	c = 1
 	for i in range(0, small_recs.shape[0], 2):
 		xs = small_recs[i] + big_rec[0]
@@ -54,11 +55,12 @@ def read_checker(image_name,H,W):
 		w = xmx - xmn
 		h = ymx - ymn
 		#f.write(str(c) + ' ' + str(x/W)  + ' ' + str(y/H)  + ' ' + str(w/W)  + ' ' + str(h/H) + '\n' )
-		f.write('./fixed_data/{0}.PNG'.format(image_name) + ' ' + xmn + ' ' + ymn + ' ' + xmx + ' ' + ymx + ' ' + str(c) )
+		fname = './fixed_data/{0}.PNG'.format(image_name)
+		f.write(fname + ' ' + str(xmn) + ' ' + str(ymn) + ' ' + str(xmx) + ' ' + str(ymx) + ' ' + str(c) + '\n')
 		c += 1
 
 if __name__ == '__main__':
-	dir_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),"fixed_test")
+	dir_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),"fixed_data")
 	
 	if not os.path.exists(dir_path):
 		print("error reading the directory")
